@@ -14,6 +14,10 @@
         }
 
         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: left; /* if you want to vertically align the items */
+            flex-wrap: wrap; /* if you want to wrap items to the next line when there is not enough space */
             margin-top: 25px;
         }
 
@@ -23,28 +27,131 @@
         }
     </style>
 
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabContent, tabLinks;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            tabLinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tabLinks.length; i++) {
-                tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+    <!-- css for slider -->
+    <style>
+        #switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            float: right;
         }
-    </script>
+
+        #switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        #switch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        #switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px !important;
+            width: 19px !important;
+            left: 4px !important;
+            bottom: 4px !important;
+            top: 0px !important;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border: 0 !important;
+        }
+
+        #switch input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        #switch input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        #switch input:checked + .slider:before {
+            -webkit-transform: translateX(32px);
+            -ms-transform: translateX(32px);
+            transform: translateX(32px);
+        }
+
+        /* Rounded sliders */
+        #switch .slider.round {
+            border-radius: 34px;
+        }
+
+        #switch .slider.round:before {
+            border-radius: 50%;
+        }
+
+        #sun-icon {
+            margin-right: 4px;
+        }
+
+        #sun-icon svg {
+            height: 20px;
+        }
+
+        #moon-icon {
+            margin-left: 4px;
+        }
+
+        #moon-icon svg {
+            height: 20px;
+        }
+    </style>
+
+    <!-- CSS for light / dark mode -->
+    <style>
+        body {
+            transition: background-color 0.5s ease;
+        }
+
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: black;
+        }
+
+        body.dark-mode {
+            background-color: #303030;
+            color: white;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <a href="#" class="waves-effect waves-light btn green accent-4 active" onclick="openTab(event, 'Resume')">My Resume</a>
-            <a href="#" class="waves-effect waves-light green accent-4 btn" onclick="openTab(event, 'Projects')">Projects</a>
-            <a href="#" class="waves-effect waves-light green accent-4 btn" onclick="openTab(event, 'Blog')">What I'm Learning</a>
+            <div class="header-btns">
+                <a href="#" class="waves-effect waves-light btn green accent-4 active custom-header-btn" onclick="openTab(event, 'Resume')">My Resume</a>
+                <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Projects')">Projects</a>
+                <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Blog')">What I'm Learning</a>
+            </div>
+            <!-- TODO: don't use inline styles -->
+            <div style="display: flex; align-items: center;">
+                <span id="sun-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </span>
+                <label id="switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider round"></span>
+                </label>
+                <span id="moon-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </span>
+            </div>
         </div>
 
         <div id="Resume" class="tab-content active resume">
@@ -128,5 +235,44 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const customHeaderBtn = document.getElementsByClassName('custom-header-btn');
+        themeSwitch.addEventListener('change', function(event){
+            const body = document.body;
+            if (event.target.checked){
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+
+                for (let i=0; i<customHeaderBtn.length; i++) {
+                    customHeaderBtn[i].classList.add('darken-4');
+                    customHeaderBtn[i].classList.remove('accent-4');
+                }
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+
+                for (let i=0; i<customHeaderBtn.length; i++) {
+                    customHeaderBtn[i].classList.remove('darken-4');
+                    customHeaderBtn[i].classList.add('accent-4');
+                }
+            }
+        });
+    </script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabContent, tabLinks;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabLinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
 </body>
 </html>
