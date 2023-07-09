@@ -26,8 +26,8 @@
             margin-top: 25px;
         }
 
-        .resume ul > li {
-            list-style-type: disclosure-closed;
+        ul > li {
+            list-style-type: disclosure-closed !important;
             margin-left: 2em;
         }
     </style>
@@ -131,112 +131,226 @@
         }
     </style>
 
+    <!-- CSS for hamburger -->
+    <style>
+       /* Styles for the navigation menu and hamburger icon */
+.header-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* align items to the start of the container */
+}
+
+.header-btns a {
+    margin-right: 1em;
+    margin-bottom: 0.5em;  /* Add some vertical space between buttons */
+    order: 2; /* order the buttons after the hamburger icon */
+}
+
+.hamburger {
+    display: none; /* hide the hamburger icon by default */
+    cursor: pointer;
+    font-size: 2em;
+    order: 1; /* order the hamburger icon before the buttons */
+}
+
+.hamburger:before {
+    content: '\2630';  /* Unicode character for hamburger icon */
+}
+
+.hamburger.active:before {
+    content: '\2715';  /* Unicode character for cross icon */
+}
+
+/* Styles for small screens */
+@media (max-width: 768px) {
+    .header-btns a {
+        display: none; /* hide the navigation menu by default on small screens */
+    }
+
+    .hamburger {
+        display: block; /* display the hamburger icon on small screens */
+        margin-bottom: 0.5em;  /* Add some space below the hamburger icon */
+    }
+
+
+    .header-btns.active {
+        flex-direction: column;
+    }
+
+    .header-btns.active a {
+        display: block; /* display the navigation menu when the hamburger icon is active */
+    }
+}
+
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="header-btns">
-                <a href="#" class="waves-effect waves-light btn green accent-4 active custom-header-btn" onclick="openTab(event, 'Resume')">My Resume</a>
-                <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Projects')">Projects</a>
-                <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Blog')">What I'm Learning</a>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="header">
+                    <div class="header-btns">
+                        <!-- Hamburger icon -->
+                        <span class="hamburger"></span>
+
+                        <a href="#" class="waves-effect waves-light btn green accent-4 active custom-header-btn" onclick="openTab(event, 'Resume')">My Resume</a>
+                        <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Projects')">Projects</a>
+                        <a href="#" class="waves-effect waves-light green accent-4 btn custom-header-btn" onclick="openTab(event, 'Blog')">What I'm Learning</a>
+                    </div>
+
+                    <!-- TODO: don't use inline styles -->
+                    <div style="display: flex; align-items: center;">
+                        <span id="sun-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </span>
+                        <label id="switch">
+                            <input type="checkbox" id="theme-switch">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="moon-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="Resume" class="tab-content active resume">
+                    <h2>My Resume</h2>
+
+                    <h4>EXPERIENCE</h4>
+
+                    <p><strong>Software Engineer @ <a href="https://www.cedar.com/">Cedar</a></strong><br>
+                    Aug. 2021 - Present</p>
+                    <ul>
+                        <li>
+                            Acted as the tech lead and project owner for the "Outstanding Balance" feature in our patient check-in app. This feature improved collection rates by enabling patients to pay their bills during the check-in process.
+                        </li>
+                        <li>
+                            Project owner for "Same day appointments" feature. Scoped tickets and acted as SME while working on a feature to allow patients to complete our check-in app once for all appointments on the same day.
+                        </li>
+                        <li>
+                            Served as the first engineer in the engineering rotation program, collaborating closely with the senior principal engineer on a three-month project. Completed the project within just one and a half months.
+                        </li>
+                        <li>
+                            Worked closely with 4 other engineers, a PM and designer in order to develop a greenfield project: an intake dashboard that allows hospital front desk staff to track patient progress in our check-in app.
+                        </li>
+                    </ul>
+
+                    <p><strong>Software Engineer @ <a href="https://www.mountsinai.org/">Mount Sinai Hospital</a></strong><br>
+                    Mar. 2018 - Aug. 2021</p>
+                    <ul>
+                        <li>Full stack development and system administration for Mount Sinai Hospital’s Lung Cancer Screening Program (IELCAP). The IELCAP unit collects patient information and medical images for analysis.</li>
+                        <li>Refactored and maintained management system serving ~30 participating institutions around the world.</li>
+                        <li>Created dashboards and improved concurrency in our scheduling software (Python3, Pyramid, Redis & MySQL stack).</li>
+                        <li>Developed our CI/CD pipeline using Jenkins for our management system & scheduling software.</li>
+                        <li>Maintained and replaced physical servers in our data centers. These servers are located in hosted our applications and ran on Linux CentOS 6 & 7.</li>
+                        <li>Maintained image analysis pipeline that converted DICOM images to a compressed a propriety file format, VisionX.</li>
+                        <li>Collaborated with Cornell University & VA Health System on front end development for our management system.</li>
+                        <li>Technical support for IELCAP Radiologists and staff.</li>
+                    </ul>
+
+                    <p><strong>Database Analyst @ <a href="https://www.nyc.gov/site/doh/about/about-doh.page">NYC Health & Mental Hygiene</a></strong><br>
+                    Jan. 2017 - Mar. 2018</p>
+                    <ul>
+                        <li>Developed internal project management system using Django and Microsoft SQL Server.</li>
+                        <li>Migrated data stored in Microsoft Access to SQL Server.</li>
+                    </ul>
+
+                    <p><strong>Desktop Support Analyst @ <a href="https://www.nychealthandhospitals.org/">NYC Health & Hospitals</a></strong><br>
+                    Jan. 2016 - Dec. 2016</p>
+                    <ul>
+                        <li>Installed and troubleshooted workstation issues while transitioning NYC hospitals to EPIC compatible machines.</li>
+                    </ul>
+
+                    <h4>EDUCATION</h4>
+                    <p><strong><a href="https://www.brooklyn.edu/">Brooklyn College</a></strong> | Computer Science, M.A. - Jan. 2016 - Dec. 2018</p>
+                    <p><strong><a href="https://www.stonybrook.edu/">Stony Brook University</a></strong> | Health Informatics, B.S. - Aug. 2010 - May. 2014</p>
+                    <p><strong><a href="https://www.coursera.org/">Coursera</a></strong> - Jan. 2019</p>
+                    <ul>
+                        <li>Analysis of Algorithms (by Tim Roughgarden)</li>
+                        <li>Machine Learning (by Andrew Ng)</li>
+                    </ul>
+
+                    <h4>SKILLS</h4>
+                    <ul>
+                        <li>React</li>
+                        <li>Typescript</li>
+                        <li>Python</li>
+                        <li>Django</li>
+                    </ul>
+                </div>
+
+                <div id="Projects" class="tab-content">
+                    <h2>Highlight Projects</h2>
+                    <p>
+                        // Describe your projects here, and link to them if they are hosted online
+                    </p>
+                </div>
+
+                <div id="Blog" class="tab-content">
+                    <h2>What I'm Learning</h2>
+                    <a href="#" onclick="openArticle(event, 'Article1')">Making a personal website with ChatGPT</a>
+                    <div id="Article1" class="article-content" style="display: none;">
+                        <h3>Making a personal website with ChatGPT</h3>
+                        <p>
+                            <h4>7/9/2023 : <i>30 mins eng time</i></h4>
+                        </p>
+                        <p>
+                            I'm starting to test out the ChatGPT code interpreter plugin. Apparently it's significantly better than just regular ChatGPT.
+                            There isn't really a clear metric to gauge if this is true but I'm going with it...
+                        </p>
+                        <p>
+                            You can upload the entire project directory into your thread with ChatGPT and it'll have all of the context.
+                            This was an annoyance in the regular version. It was good at solving small problems but tasks that require more context it'll struggle with...
+                            just like any human would.
+                        </p>
+                        <p>
+                            You'll still need some intuition of what is right or wrong... and just coding in general. For example, I asked it:
+                            <i>I want to add an "article" to my "What I'm Learning" tab. Maybe just have a link to the article name, and when you click the link, it'll have the actual article. I want the article to be named "Making a personal website with ChatGPT"</i>
+                        </p>
+                        <p>
+                            It gave me a good answer but it doesn't spit out the updated file. You'd need to know where to put the script tag, where to put the code snippets, etc.
+                            It's trivial but it might be confusing for someone just starting out. You can keep asking it where to put the code snippet but it'll take longer to get an MVP out.
+                        </p>
+                        <h5>
+                            So what I did today solely with ChatGPT prompts:
+                        </h5>
+                        <ul>
+                            <li>Ability to add articles</li>
+                            <li>Make the site responsive. I gave it this prompt: <i>I want to make it responsive. How can I fix it, I think I'm not using container correctly in material css</i>
+                                <br/>
+                                It gave me the correct response but made the content alittle too narrow on desktop. That was an easy fix
+                            </li>
+                            <li>
+                                Asked it to help me collapse my header into a hamburger on small screens. It originally suggested to use material css' navbar. The asthetic is completely different from what I wanted. This took a majority of my time.
+                                I actually have no idea how to create these responsive hamburgers and cross icons from scratch. So I spent probably 10 mins of back and forth with ChatGPT. It would regress several times. 2 Steps forward 1 step back.
+                                Sometimes it would leave our lines of code that were perfectly fine in the previous response.
+                            </li>
+                        </ul>
+                        <h5>
+                            So what I did today without prompts:
+                        </h5>
+                        <ul>
+                            <li>Hacking together some fixes for material css. I couldn't get the bulletpoints showing because of material css. I just overrode it with <i>important</i></li>
+                            <li>Fixing the spacing after asking it to make my site responsive. It added offset on medium and large screens for some reason. I just removed those classes</li>
+                        </ul>
+                        <h5>
+                            Things to do next time:
+                        </h5>
+                        <ul>
+                            <li>
+                                Start listing out some projects. I'll probably need some dummy projects. I don't remember the last time I had a noteworthy project outside of work..
+                            </li>
+                            <li>
+                                Post images in my articles. I'll need to figure out how to host this. Maybe digitalocean handles this for me.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <!-- TODO: don't use inline styles -->
-            <div style="display: flex; align-items: center;">
-                <span id="sun-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </span>
-                <label id="switch">
-                    <input type="checkbox" id="theme-switch">
-                    <span class="slider round"></span>
-                </label>
-                <span id="moon-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                </span>
-            </div>
-        </div>
-
-        <div id="Resume" class="tab-content active resume">
-            <h2>My Resume</h2>
-
-            <h4>EXPERIENCE</h4>
-
-            <p><strong>Software Engineer @ <a href="https://www.cedar.com/">Cedar</a></strong><br>
-            Aug. 2021 - Present</p>
-            <ul>
-                <li>
-                    Acted as the tech lead and project owner for the "Outstanding Balance" feature in our patient check-in app. This feature improved collection rates by enabling patients to pay their bills during the check-in process.
-                </li>
-                <li>
-                    Project owner for "Same day appointments" feature. Scoped tickets and acted as SME while working on a feature to allow patients to complete our check-in app once for all appointments on the same day.
-                </li>
-                <li>
-                    Served as the first engineer in the engineering rotation program, collaborating closely with the senior principal engineer on a three-month project. Completed the project within just one and a half months.
-                </li>
-                <li>
-                    Worked closely with 4 other engineers, a PM and designer in order to develop a greenfield project: an intake dashboard that allows hospital front desk staff to track patient progress in our check-in app.
-                </li>
-            </ul>
-
-            <p><strong>Software Engineer @ <a href="https://www.mountsinai.org/">Mount Sinai Hospital</a></strong><br>
-            Mar. 2018 - Aug. 2021</p>
-            <ul>
-                <li>Full stack development and system administration for Mount Sinai Hospital’s Lung Cancer Screening Program (IELCAP). The IELCAP unit collects patient information and medical images for analysis.</li>
-                <li>Refactored and maintained management system serving ~30 participating institutions around the world.</li>
-                <li>Created dashboards and improved concurrency in our scheduling software (Python3, Pyramid, Redis & MySQL stack).</li>
-                <li>Developed our CI/CD pipeline using Jenkins for our management system & scheduling software.</li>
-                <li>Maintained and replaced physical servers in our data centers. These servers are located in hosted our applications and ran on Linux CentOS 6 & 7.</li>
-                <li>Maintained image analysis pipeline that converted DICOM images to a compressed a propriety file format, VisionX.</li>
-                <li>Collaborated with Cornell University & VA Health System on front end development for our management system.</li>
-                <li>Technical support for IELCAP Radiologists and staff.</li>
-            </ul>
-
-            <p><strong>Database Analyst @ <a href="https://www.nyc.gov/site/doh/about/about-doh.page">NYC Health & Mental Hygiene</a></strong><br>
-            Jan. 2017 - Mar. 2018</p>
-            <ul>
-                <li>Developed internal project management system using Django and Microsoft SQL Server.</li>
-                <li>Migrated data stored in Microsoft Access to SQL Server.</li>
-            </ul>
-
-            <p><strong>Desktop Support Analyst @ <a href="https://www.nychealthandhospitals.org/">NYC Health & Hospitals</a></strong><br>
-            Jan. 2016 - Dec. 2016</p>
-            <ul>
-                <li>Installed and troubleshooted workstation issues while transitioning NYC hospitals to EPIC compatible machines.</li>
-            </ul>
-
-            <h4>EDUCATION</h4>
-            <p><strong><a href="https://www.brooklyn.edu/">Brooklyn College</a></strong> | Computer Science, M.A. - Jan. 2016 - Dec. 2018</p>
-            <p><strong><a href="https://www.stonybrook.edu/">Stony Brook University</a></strong> | Health Informatics, B.S. - Aug. 2010 - May. 2014</p>
-            <p><strong><a href="https://www.coursera.org/">Coursera</a></strong> - Jan. 2019</p>
-            <ul>
-                <li>Analysis of Algorithms (by Tim Roughgarden)</li>
-                <li>Machine Learning (by Andrew Ng)</li>
-            </ul>
-
-            <h4>SKILLS</h4>
-            <ul>
-                <li>React</li>
-                <li>Typescript</li>
-                <li>Python</li>
-                <li>Django</li>
-            </ul>
-        </div>
-
-        <div id="Projects" class="tab-content">
-            <h2>Highlight Projects</h2>
-            <p>
-                // Describe your projects here, and link to them if they are hosted online
-            </p>
-        </div>
-
-        <div id="Blog" class="tab-content">
-            <h2>What I'm Learning</h2>
-            <p>
-                // Write about your learnings here. Consider linking to individual blog posts if you have them hosted elsewhere.
-            </p>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -278,6 +392,30 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+    </script>
+    <script>
+        function openArticle(evt, articleName) {
+            var i, articleContent, articleLinks;
+            articleContent = document.getElementsByClassName("article-content");
+            for (i = 0; i < articleContent.length; i++) {
+                articleContent[i].style.display = "none";
+            }
+            articleLinks = document.getElementsByClassName("article-link");
+            for (i = 0; i < articleLinks.length; i++) {
+                articleLinks[i].className = articleLinks[i].className.replace(" active", "");
+            }
+            document.getElementById(articleName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    <script>
+        // Script to toggle the navigation menu on small screens
+        var hamburger = document.querySelector('.hamburger');
+        hamburger.addEventListener('click', function() {
+            var headerBtns = document.querySelector('.header-btns');
+            hamburger.classList.toggle('active');
+            headerBtns.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
